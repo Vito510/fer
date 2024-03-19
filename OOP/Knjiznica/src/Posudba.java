@@ -13,12 +13,12 @@ public class Posudba {
     LocalDate datum;
 
     Posudba(Ucenik posudioc, ArrayList<Knjiga> knjige) {
-        id = rd_broj++;
+        id = Posudba.rd_broj++;
         this.posudioc = posudioc;
         this.knjige = knjige;
     }
 
     public String toString() {
-        
+        return String.format("%d %s %d",rd_broj,posudioc,knjige.size());
     }
 }

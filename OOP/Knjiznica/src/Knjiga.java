@@ -18,8 +18,8 @@ public class Knjiga {
         this.count = count;
     }
 
-    public void setCount(int count) {
-        this.count = count;
+    public void decrementCount() {
+        this.count -= 1;
     }
 
     public int getCount() {
@@ -41,4 +41,5 @@ public class Knjiga {
         return null;
 
     }
+
 }

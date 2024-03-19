@@ -5,19 +5,28 @@ public class Knjiznica {
 
     static ArrayList<Knjiga> knjige;
     static ArrayList<Posudba> posudbe;
-    static ArrayList<Ucenik> ucenici
+    static ArrayList<Ucenik> ucenici;
 
     public static void main(String[] args) {
 
         ucenici = new ArrayList<>();
         knjige = new ArrayList<>();
+        posudbe = new ArrayList<>();
 
         ucenici.add(new Ucenik("Ivan", "Horvat", "123", "4e", 5));
 
 
         knjige.add(new Knjiga("Zlocin i kazna", "Fjodor Mihajlovič Dostojevski","001",10));
 
-        System.out.println("""
+
+        Scanner sc = new Scanner(System.in);
+
+
+        boolean loop = true;
+
+        while (loop) {
+
+            System.out.println("""
                 1 - Posudba
                 2 - Vracanje
                 3 - Pregled svih ucenika
@@ -26,36 +35,38 @@ public class Knjiznica {
                 6 - Pregled svih posudbi
                 7 - Kraj""");
 
-        Scanner sc = new Scanner(System.in);
+            int option = sc.nextInt();
 
-        int option = sc.nextInt();
+            switch (option) {
+                case 1:
+                    Posudba p = Posudba();
 
+                    if (p != null) {
+                        posudbe.add(p);
+                    }
 
-        switch (option) {
-            case 1:
-                Posudba p = Posudba();
+                    break;
+                case 3:
+                    for (Ucenik u : ucenici) {
+                        System.out.println(u.toString());
+                    }
+                    break;
+                case 4:
+                    System.out.println("WIP");
+                    break;
+                case 5:
+                    for (Posudba po : posudbe) {
+                        System.out.println(po.toString());
+                    }
+                    break;
+                case 7:
+                    loop = false;
+                    break;
 
-                if (p != null) {
-                    posudbe.add(p);
-                }
-
-                break;
-            case 3:
-                for (Ucenik u : ucenici) {
-                    System.out.println(u.toString());
-                }
-                break;
-            case 4:
-                System.out.println("WIP");
-                break;
-            case 4:
-                for (Posudba p : posudbe) {
-                    posudbe.toString();
-                }
-            case 7:
-                break;
-
+            }
         }
+
+
 
 
     }
@@ -87,11 +98,14 @@ public class Knjiznica {
         for (int i = 1; i < input.length; i++) {
             Knjiga k = Knjiga.findKnjiga(knjige, input[i]);
 
-            if (k != null) {
-                posudeneKnjige.add(k);
-            } else {
+            if (k == null) {
                 System.out.println("Nije pronadena knjiga sa ISBN: "+input[i]);
                 return null;
+            } else if (k.getCount() == 0) {
+                System.out.println("Nema vise ove knjige na stazu: "+input[i]);
+            } else {
+                k.decrementCount();
+                posudeneKnjige.add(k);
             }
         }
 

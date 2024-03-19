@@ -46,13 +46,19 @@ public class Knjiznica {
                     }
 
                     break;
+
+                case 2:
+                    Vrati(posudbe);
+                    break;
                 case 3:
                     for (Ucenik u : ucenici) {
                         System.out.println(u.toString());
                     }
                     break;
                 case 4:
-                    System.out.println("WIP");
+                    for (Knjiga k : knjige) {
+                        System.out.println(k.toString());
+                    }
                     break;
                 case 5:
                     for (Posudba po : posudbe) {
@@ -61,9 +67,13 @@ public class Knjiznica {
                     break;
                 case 7:
                     loop = false;
-                    break;
+                    return;
 
             }
+
+            System.out.print("Pritisni ENTER za povratak");
+            sc = new Scanner(System.in);
+            sc.nextLine();
         }
 
 
@@ -109,7 +119,43 @@ public class Knjiznica {
             }
         }
 
+        System.out.println("Posudeno "+ posudeneKnjige.size()+ " knjiga");
+
         return new Posudba(u, posudeneKnjige);
+
+
+    }
+
+    static void Vrati(ArrayList<Posudba> posudbe) {
+
+        Scanner sc = new Scanner(System.in);
+
+        System.out.println("Unesi oib ucenika:");
+
+        String oib = sc.nextLine();
+
+        int count = 0;
+
+        ArrayList<Posudba> toRemove = new ArrayList<>();
+
+        for (Posudba p : posudbe) {
+
+            if (p.posudioc.getOib().equals(oib)) {
+                toRemove.add(p);
+                count++;
+            }
+
+        }
+
+        for (Posudba p : toRemove) {
+            posudbe.remove(p);
+        }
+
+        if (count == 0) {
+            System.out.println("Ucenik s oibom nepostoji ili nema posudbi");
+        } else {
+            System.out.println("Vraceno "+count+" posudbi");
+        }
 
 
     }

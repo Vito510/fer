@@ -26,6 +26,10 @@ public class Ucenik {
         return max_posudba;
     }
 
+    public String getOib() {
+        return oib;
+    }
+
     public static Ucenik findUcenik(ArrayList<Ucenik> ucenici, String ISBN) {
 
         for (Ucenik u : ucenici) {

@@ -22,6 +22,10 @@ public class Knjiga {
         this.count -= 1;
     }
 
+    public void incrementCount() {
+        this.count += 1;
+    }
+
     public int getCount() {
         return count;
     }

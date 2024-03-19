@@ -8,11 +8,19 @@ public class Knjiga {
     private int count;
 
     public String toString() {
-        return String.format("%s %s %s (%d)",naslov,autor,ISBN,count);
+        return String.format("%s %s %s",naslov,autor,ISBN);
     }
 
-    Knjiga(String ime, String autor, String ISBN, int count) {
-        this.naslov = ime;
+    public String toString(boolean pretty) {
+        if (pretty) {
+            return String.format("%50s %40s %s",naslov,autor,ISBN);
+        } else {
+            return this.toString();
+        }
+    }
+
+    Knjiga(String naslov, String autor, String ISBN, int count) {
+        this.naslov = naslov;
         this.autor = autor;
         this.ISBN = ISBN;
         this.count = count;

@@ -3,7 +3,8 @@ import java.util.ArrayList;
 
 public class Posudba {
 
-    static int rd_broj;
+    static int rd_broj = 0;
+    boolean active = false;
     Ucenik posudioc;
 
     int id;
@@ -13,12 +14,19 @@ public class Posudba {
     LocalDate datum;
 
     Posudba(Ucenik posudioc, ArrayList<Knjiga> knjige) {
-        id = Posudba.rd_broj++;
+
+        this.id = Posudba.rd_broj++;
         this.posudioc = posudioc;
         this.knjige = knjige;
+        this.datum = LocalDate.now();
+        this.active = true;
+    }
+
+    public void deactivate() {
+        this.active = false;
     }
 
     public String toString() {
-        return String.format("%d %s %d",rd_broj,posudioc,knjige.size());
+        return String.format("%d %s %s %s",id,datum,posudioc,knjige);
     }
 }

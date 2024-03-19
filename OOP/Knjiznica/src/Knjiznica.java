@@ -14,9 +14,12 @@ public class Knjiznica {
         posudbe = new ArrayList<>();
 
         ucenici.add(new Ucenik("Ivan", "Horvat", "123", "4e", 5));
+        ucenici.add(new Ucenik("Ivan", "Cuic", "111", "4e", 1));
 
 
         knjige.add(new Knjiga("Zlocin i kazna", "Fjodor Mihajlovič Dostojevski","001",10));
+        knjige.add(new Knjiga("1984", "George Orwell","002",1));
+        knjige.add(new Knjiga("Zivotinjska farma", "George Orwell","003",0));
 
 
         Scanner sc = new Scanner(System.in);
@@ -57,12 +60,28 @@ public class Knjiznica {
                     break;
                 case 4:
                     for (Knjiga k : knjige) {
-                        System.out.println(k.toString());
+                        System.out.println(k.toString(true) + " (" + k.getCount() + ") kom");
                     }
                     break;
                 case 5:
                     for (Posudba po : posudbe) {
-                        System.out.println(po.toString());
+
+                        if (po.active) {
+                            System.out.println(po.toString());
+                        }
+
+                    }
+                    break;
+                case 6:
+                    for (Posudba po : posudbe) {
+
+                        if (po.active) {
+                            System.out.println("ACTIVE   "+po.toString());
+                        } else {
+                            System.out.println("INACTIVE "+po.toString());
+                        }
+
+
                     }
                     break;
                 case 7:
@@ -111,10 +130,14 @@ public class Knjiznica {
             if (k == null) {
                 System.out.println("Nije pronadena knjiga sa ISBN: "+input[i]);
                 return null;
+            } else if (u.getBrojKnjiga()+input.length-1 > u.getMaxKnjiga()) {
+                System.out.println("Ucenik je posudio maksimalan broj knjiga, molimo vratite knjige ili posudite manje");
+                return null;
             } else if (k.getCount() == 0) {
                 System.out.println("Nema vise ove knjige na stazu: "+input[i]);
             } else {
                 k.decrementCount();
+                u.incrementBrojKnjiga();
                 posudeneKnjige.add(k);
             }
         }
@@ -135,26 +158,28 @@ public class Knjiznica {
         String oib = sc.nextLine();
 
         int count = 0;
+        int bookCount = 0;
 
         ArrayList<Posudba> toRemove = new ArrayList<>();
 
         for (Posudba p : posudbe) {
 
-            if (p.posudioc.getOib().equals(oib)) {
+            if (p.posudioc.getOib().equals(oib) && p.active) {
                 toRemove.add(p);
                 count++;
+                bookCount += p.knjige.size();
             }
 
         }
 
         for (Posudba p : toRemove) {
-            posudbe.remove(p);
+            p.deactivate();
         }
 
         if (count == 0) {
             System.out.println("Ucenik s oibom nepostoji ili nema posudbi");
         } else {
-            System.out.println("Vraceno "+count+" posudbi");
+            System.out.printf("Vraceno %d posudbi, koje se sastoje od %d knjiga\n",count, bookCount);
         }
 
 

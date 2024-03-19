@@ -2,28 +2,45 @@ import java.util.ArrayList;
 
 public class Ucenik {
 
-    private String ime, prezime, oib, razred;
+    private final String ime, prezime, oib;
+    private String razred;
+    private int razredBroj;
 
-    private int max_posudba;
+    private int maxKnjiga;
+    private int brojKnjiga;
 
-    Ucenik(String ime, String prezime, String oib, String razred, int max_posudba) {
+    Ucenik(String oib, String ime, String prezime, int razredBroj, String razred, int maxKnjiga) {
         this.ime = ime;
         this.prezime = prezime;
         this.oib = oib;
         this.razred = razred;
-        this.max_posudba = max_posudba;
+        this.maxKnjiga = maxKnjiga;
+        this.razredBroj = razredBroj;
+        this.brojKnjiga = 0;
     }
 
     public String toString() {
-        return String.format("%s %s %s %s",ime,prezime,oib, razred);
+        return String.format("%20s %20s %5s %5s (%d/%d)",ime,prezime,oib, razred, brojKnjiga, maxKnjiga);
     }
 
-    public void setMax_posudba(int max_posudba) {
-        this.max_posudba = max_posudba;
+    public void setMaxKnjiga(int maxKnjiga) {
+        this.maxKnjiga = maxKnjiga;
     }
 
-    public int getMax_posudba() {
-        return max_posudba;
+    public int getMaxKnjiga() {
+        return maxKnjiga;
+    }
+
+    public int getBrojKnjiga() {
+        return brojKnjiga;
+    }
+
+    public void incrementBrojKnjiga() {
+        this.brojKnjiga++;
+    }
+
+    public void decrementBrojKnjiga() {
+        this.brojKnjiga--;
     }
 
     public String getOib() {
